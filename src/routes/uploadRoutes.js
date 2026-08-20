@@ -3,21 +3,11 @@ import multer from 'multer';
 import path from 'path';
 import { protectAdmin } from '../middleware/authMiddleware.js';
 import { processImageUploadPipeline } from '../services/storageService.js';
-import { isFirebaseConfigured } from '../config/firebase.js';
 
 const router = express.Router();
 
-// Memory storage for Firebase, disk storage fallback
-const storage = isFirebaseConfigured
-  ? multer.memoryStorage()
-  : multer.diskStorage({
-      destination(req, file, cb) {
-        cb(null, 'uploads/');
-      },
-      filename(req, file, cb) {
-        cb(null, `listing-${Date.now()}-${Math.random().toString(36).substring(2, 6)}${path.extname(file.originalname)}`);
-      },
-    });
+// Use Memory Storage so uploaded images are converted to Base64 or Firebase URLs reliably
+const storage = multer.memoryStorage();
 
 function checkFileType(file, cb) {
   const filetypes = /jpg|jpeg|png|webp/;
@@ -33,14 +23,14 @@ function checkFileType(file, cb) {
 
 const upload = multer({
   storage,
-  limits: { fileSize: 20 * 1024 * 1024 }, // 20MB limit per high-res image
+  limits: { fileSize: 25 * 1024 * 1024 }, // 25MB limit per image
   fileFilter: function (req, file, cb) {
     checkFileType(file, cb);
   },
 });
 
 // @route   POST /api/upload
-// @desc    High-resolution Image Upload Pipeline (Google Firebase Storage / Disk)
+// @desc    High-resolution Image Upload Pipeline (Google Firebase Storage / Base64 Data URL)
 // @access  Private (Admin)
 router.post('/', protectAdmin, upload.array('images', 10), async (req, res) => {
   try {
