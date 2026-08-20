@@ -10,13 +10,13 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
-      - key: MONGODB_URI
-        value: mongodb+srv://zishaninfo20_db_user:DGgPI5JTicdjGqXJ@cluster0.lw5liqe.mongodb.net/brutal_age_marketplace?retryWrites=true&w=majority&appName=Cluster0
-      - key: JWT_SECRET
-        value: super_secret_brutal_age_jwt_key_2026
-      - key: ADMIN_USERNAME
-        value: gamerdudeabhi1394@gmail.com
-      - key: ADMIN_PASSWORD
-        value: Abhi@1394
       - key: PORT
         value: 10000
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: ADMIN_USERNAME
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
