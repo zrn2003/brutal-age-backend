@@ -1,0 +1,7 @@
+# Backend GitIgnore
+node_modules/
+.env
+.env.local
+uploads/
+*firebase-adminsdk*.json
+*.log
