@@ -21,7 +21,7 @@ const sampleListings = [
     price: 1850,
     description: 'Top-tier Brutal Age war account with strong hold 35, full T7 Horde troops unlocked, maxed Red Dragon skills, and 35k gems stored.',
     status: 'Available',
-    contact_link: 'https://wa.me/919876543210',
+    contact_link: 'https://wa.me/917517491313',
   },
   {
     title: 'Brutal Age Kingdom #420 Lord ID — POWERFUL ACCOUNTS & LEGENDARY PARTNER SET',
@@ -38,7 +38,7 @@ const sampleListings = [
     price: 1250,
     description: 'High offensive power Brutal Age account with strong hold 35, full LEGENDARY PARTNER SET, and high rally speed stats.',
     status: 'Available',
-    contact_link: 'https://wa.me/919876543210',
+    contact_link: 'https://wa.me/917517491313',
   },
   {
     title: 'Brutal Age Max War Account — POWERFUL ACCOUNTS & T7 Horde (RESERVED)',
@@ -54,7 +54,7 @@ const sampleListings = [
     price: 3200,
     description: 'Dominant server war leader account with maxed out T7 Horde troops and Golden Dragon unlocked.',
     status: 'Reserved',
-    contact_link: 'https://wa.me/919876543210',
+    contact_link: 'https://wa.me/917517491313',
   },
   {
     title: 'Brutal Age Starter strong hold 35 Account + 50M Resource Stash',
@@ -70,7 +70,7 @@ const sampleListings = [
     price: 650,
     description: 'Great mid-game Brutal Age account with strong hold 35 unlocked, clean research tree, and ready for kingdom teleport.',
     status: 'Available',
-    contact_link: 'https://wa.me/919876543210',
+    contact_link: 'https://wa.me/917517491313',
   },
   {
     title: 'Brutal Age Veteran Account — Leadership LEVEL 420 & Blue Dragon Skills',
@@ -86,7 +86,7 @@ const sampleListings = [
     price: 1950,
     description: 'Strong clan leader account with strong hold 35, maxed Blue Dragon frost skills, and high defense research.',
     status: 'Available',
-    contact_link: 'https://wa.me/919876543210',
+    contact_link: 'https://wa.me/917517491313',
   },
 ];
 
