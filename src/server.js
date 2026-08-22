@@ -115,8 +115,12 @@ mongoose
     console.warn('⚠️ MongoDB connection warning (Memory fallback mode if DB unreachable):', err.message);
   });
 
-app.listen(PORT, '0.0.0.0', () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Brutal Age Microservices API running on port ${PORT} (Listening on 0.0.0.0 for local network devices)`);
   console.log(`📦 Image Storage Pipeline: ${isFirebaseConfigured ? 'Google Firebase Storage' : 'Local Disk'}`);
   console.log(`🛡️ Cybersecurity Shields: Helmet, Anti-NoSQL, Anti-XSS, Bcrypt, JWT, Custom Requirements & Analytics ACTIVE`);
 });
+
+// Configure high-performance socket timeouts to prevent ERR_CONNECTION_CLOSED on large payloads
+server.keepAliveTimeout = 120 * 1000; // 120 seconds
+server.headersTimeout = 125 * 1000; // 125 seconds
