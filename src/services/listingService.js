@@ -37,10 +37,24 @@ export const getListingsService = async (queryParams) => {
 };
 
 export const getListingByIdService = async (id) => {
-  if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-    return null;
+  if (!id || typeof id !== 'string') return null;
+
+  // 1. Full 24-character ObjectId match
+  if (mongoose.Types.ObjectId.isValid(id)) {
+    const listing = await Listing.findById(id);
+    if (listing) return listing;
   }
-  return await Listing.findById(id);
+
+  // 2. Short 6-character suffix match (e.g. "1b29a1")
+  const cleanId = id.replace(/[^a-fA-F0-9]/g, '');
+  if (cleanId.length >= 4) {
+    const shortListing = await Listing.findOne({
+      _id: { $regex: `${cleanId}$`, $options: 'i' },
+    });
+    if (shortListing) return shortListing;
+  }
+
+  return null;
 };
 
 export const createListingService = async (listingData) => {
