@@ -58,6 +58,7 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'OK',
     dbState: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected',
+    dbName: mongoose.connection.name || 'brutal_age_marketplace',
     storagePipeline: isFirebaseConfigured
       ? 'Google Firebase Storage'
       : 'Local Disk Storage (/uploads)',
@@ -103,20 +104,23 @@ const seedAdminIfNeeded = async () => {
 
 // Database Connection & Server Listen
 const PORT = process.env.PORT || 5000;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/gaming_marketplace';
+const defaultAtlasUri = 'mongodb+srv://zishaninfo20_db_user:DGgPI5JTicdjGqXJ@cluster0.lw5liqe.mongodb.net/brutal_age_marketplace?retryWrites=true&w=majority&appName=Cluster0';
+
+const envUri = process.env.MONGODB_URI ? process.env.MONGODB_URI.trim() : '';
+const MONGODB_URI = (envUri && envUri.startsWith('mongodb')) ? envUri : defaultAtlasUri;
 
 mongoose
-  .connect(MONGODB_URI)
+  .connect(MONGODB_URI, { dbName: 'brutal_age_marketplace' })
   .then(() => {
-    console.log('✅ Connected to MongoDB Database');
+    console.log(`✅ Connected to MongoDB Database: "${mongoose.connection.name}"`);
     seedAdminIfNeeded();
   })
   .catch((err) => {
-    console.warn('⚠️ MongoDB connection warning (Memory fallback mode if DB unreachable):', err.message);
+    console.warn('⚠️ MongoDB connection warning:', err.message);
   });
 
 const server = app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Brutal Age Microservices API running on port ${PORT} (Listening on 0.0.0.0 for local network devices)`);
+  console.log(`🚀 Brutal Age Microservices API running on port ${PORT}`);
   console.log(`📦 Image Storage Pipeline: ${isFirebaseConfigured ? 'Google Firebase Storage' : 'Local Disk'}`);
   console.log(`🛡️ Cybersecurity Shields: Helmet, Anti-NoSQL, Anti-XSS, Bcrypt, JWT, Custom Requirements & Analytics ACTIVE`);
 });
