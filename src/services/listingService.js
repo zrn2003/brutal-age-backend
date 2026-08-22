@@ -129,11 +129,11 @@ export const getListingsService = async (queryParams = {}) => {
       ];
     }
 
-    let listings = await Listing.find(query).sort({ createdAt: -1 });
+    let listings = await Listing.find(query).sort({ createdAt: -1 }).allowDiskUse(true);
 
     // Fallback 1: If query with filters returns 0 items, fetch all listings from database
     if ((!listings || listings.length === 0) && Object.keys(query).length > 0) {
-      listings = await Listing.find({}).sort({ createdAt: -1 });
+      listings = await Listing.find({}).sort({ createdAt: -1 }).allowDiskUse(true);
     }
 
     // Fallback 2: If database collection has 0 items, auto-seed initial listings
@@ -143,7 +143,7 @@ export const getListingsService = async (queryParams = {}) => {
         if (totalCount === 0) {
           console.log('[AUTO-SEED] Seeding initial listings into database...');
           await Listing.insertMany(sampleListings);
-          listings = await Listing.find({}).sort({ createdAt: -1 });
+          listings = await Listing.find({}).sort({ createdAt: -1 }).allowDiskUse(true);
         }
       } catch (seedErr) {
         console.error('[AUTO-SEED ERROR]:', seedErr.message);

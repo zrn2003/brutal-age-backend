@@ -66,7 +66,9 @@ const listingSchema = new mongoose.Schema(
   }
 );
 
-listingSchema.index({ game_name: 1, status: 1, price: 1 });
+// Indexes for high-speed query performance & indexed sorting
+listingSchema.index({ createdAt: -1 });
+listingSchema.index({ game_name: 1, status: 1, price: 1, createdAt: -1 });
 
 const Listing = mongoose.model('Listing', listingSchema);
 export default Listing;
