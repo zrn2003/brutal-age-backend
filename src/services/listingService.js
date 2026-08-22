@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import Listing from '../models/Listing.js';
 
 export const getListingsService = async (queryParams) => {
@@ -36,6 +37,9 @@ export const getListingsService = async (queryParams) => {
 };
 
 export const getListingByIdService = async (id) => {
+  if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+    return null;
+  }
   return await Listing.findById(id);
 };
 
